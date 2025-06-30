@@ -21,7 +21,16 @@ export const getMajor = (url:string, search:string, setLoading:Dispatch<SetState
             res.data.data.map((item:any) => {
                 item.createdAt = formatTime(item.createdAt)  
                 item.key = item.id
-                item.action = <Button onClick={() => navigate(`${item.id}`)} className="w-[25px] h-[25px]"  size="small"> <MoreOutlined/> </Button>
+                item.action = (
+                  <Button
+                    onClick={() => navigate(`${item.id}`)}
+                    className="!w-[32px] !h-[30px] !text-[20px]"
+                    size="small"
+                  >
+                    {" "}
+                    <MoreOutlined />{" "}
+                  </Button>
+                );
                 return item
             })
             setData(res.data)

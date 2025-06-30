@@ -21,6 +21,7 @@ const MajorCreate = () => {
   function handleCreate(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setIsLoading(true)
+    console.log(image, name);
     const data = { image: image.filename, name }
     if (id) {
       instance.patch(`/stacks/${id}`, data, {headers: { "Authorization": `Bearer ${token}` }}).then(() => {

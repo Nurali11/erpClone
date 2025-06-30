@@ -8,11 +8,13 @@ import type { UpdateImgType } from '../types/UploadType';
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const UploadImg: FC<{ setImage: Dispatch<SetStateAction<any>>, updateData?: UpdateImgType }> = ({ setImage, updateData }) => {
-  const [fileList, setFileList] = useState<UploadFile[] | UpdateImgType[]>(updateData ? [updateData] : []);
+  const [fileList, setFileList] = useState<UploadFile[] | UpdateImgType[]>(
+    updateData ? [updateData] : []
+  );
 
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    setImage(newFileList[0]?.response)
+    setImage(newFileList[0]?.response);
   };
 
   const onPreview = async (file: UploadFile) => {
@@ -32,9 +34,9 @@ const UploadImg: FC<{ setImage: Dispatch<SetStateAction<any>>, updateData?: Upda
 
   useEffect(() => {
     if (updateData) {
-      setFileList([updateData])
+      setFileList([updateData]);
     }
-  }, [updateData])
+  }, [updateData]);
   return (
     <ImgCrop rotationSlider>
       <Upload
@@ -44,7 +46,7 @@ const UploadImg: FC<{ setImage: Dispatch<SetStateAction<any>>, updateData?: Upda
         onChange={onChange}
         onPreview={onPreview}
       >
-        {fileList.length < 1 && '+ Yuklash'}
+        {fileList.length < 1 && "+ Yuklash"}
       </Upload>
     </ImgCrop>
   );
