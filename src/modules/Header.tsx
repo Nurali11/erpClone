@@ -1,0 +1,40 @@
+import { BellOutlined, LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
+import { Badge, Button, Modal } from "antd"
+import { useContext, useState } from "react"
+import { Context } from "../context/Context"
+import { useCookies } from "react-cookie"
+
+const Header = () => {
+  const {showNavbar, setShowNavbar, setToken} = useContext(Context)
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const [_cookie,_setCookie,removeCookie] = useCookies(['token'])
+  const [loading, setIsLoading] = useState<boolean>(false)
+
+  function logOut():void{
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+      setToken(null)
+      removeCookie("token")
+      location.pathname = "/"
+    },1000)
+  }
+  return (
+    <>
+    <div className="bg-[#031529] sticky top-0 z-50 p-2 py-[12px] border-b-[0.5px] border-slate-600 flex items-center justify-between">
+      <button onClick={() => setShowNavbar(!showNavbar)} className="text-white  cursor-pointer">
+        {showNavbar ?  <MenuUnfoldOutlined className="text-[25px]" /> : <MenuFoldOutlined className="text-[25px]" />}
+      </button>
+      <div className="flex items-center gap-[5px]">
+        <Badge size="small" count={50} overflowCount={9}>
+          <Button size="small" className="w-[35px] !h-[30px]" type="default"> <BellOutlined className="text-[23px]"/> </Button>
+        </Badge>
+        <Button onClick={() => setShowModal(true)} icon={<LogoutOutlined className="text-[20px]"/>} iconPosition="end" className="!text-white !text-[20px]" type="text">Chiqish</Button>
+      </div>
+    </div>
+    <Modal confirmLoading={loading} open={showModal} okText="Chiqish" cancelText="Bekor qilish" onOk={() => logOut()} onCancel={() => setShowModal(false)} title="Tizimdan chiqish"></Modal>
+    </>
+  )
+}
+
+export default Header
