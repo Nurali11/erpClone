@@ -26,6 +26,7 @@ const UploadImg: FC<{ setImage: Dispatch<SetStateAction<any>>, updateData?: Upda
         reader.onload = () => resolve(reader.result as string);
       });
     }
+    setImage(fileList);
     const image = new Image();
     image.src = src;
     const imgWindow = window.open(src);
@@ -35,6 +36,7 @@ const UploadImg: FC<{ setImage: Dispatch<SetStateAction<any>>, updateData?: Upda
   useEffect(() => {
     if (updateData) {
       setFileList([updateData]);
+      setImage(fileList);
     }
   }, [updateData]);
   return (
